@@ -90,13 +90,20 @@ user = User.create(first_name: "Jane", email: "email@email.com", username: "roto
 this now inserts into users and profiles which is new from steps above
 
 <!-- NEXT WE ARE GOING TO CREATE VALIDATORS -->
-start with user.rb
 
+start with user.rb
 validates: first_name, presence: true // just means it has to be there
 validates: email, presence: true
 validates: username, presence: true
 
 # if i hit enter on User.create without the validators then nil everything is not stored in database nil means not created correctly especially if the id and created at and updated at by rails are nil.
+
+next with blog.rb
+validates: title, presence: true
+validates: content, presence: true
+<!-- how to check if these validators work? -->
+Blog.create ...nil on everything it is working
+
 
 
 
