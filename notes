@@ -10,6 +10,8 @@ ls -- to view files in your virtual linux terminal
 cd my_first_rails_project --goes to that folder after finding with ls to view
 code .  ----to open it in ruby on rails virtual linux system
 
+  #shortcut to open is code filename in terminal 
+
 # To create a model, we can use the rails generate model command:
 
 rails generate model User name:string email:string
