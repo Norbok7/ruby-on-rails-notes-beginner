@@ -58,3 +58,19 @@ ActiveRecord::Schema.define(version: 20231230191708) do
   end
 
 end
+
+<!-- model methods to interact with database -->
+rails console --in terminal
+
+exit
+
+# create a user in rails
+Let's go ahead and create a new user. We can do that by running the following command:
+
+User.create(name: "John Doe", email: "johndoe@gmail.com")
+This is the equivalent of running the following SQL query:
+
+INSERT INTO users (name, email) VALUES ("John Doe", "joendoe@gmail.com"
+
+<!-- find user like this  -->
+User.find(1)
