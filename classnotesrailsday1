@@ -1,0 +1,105 @@
+do this in your ubuntu on windows
+rails new beta_blogs_api --api
+cd beta_blogs_api
+code .
+<!-- project created above and ready in vs code here -->
+mostly in app config and db folders for a few weeks.
+
+# when creating api you ahve to create your database as well.
+in our class we use sqlite3 similar to postgresql database
+
+<!-- ways to get started?? -->
+# what is database structure and schema structure?
+# best way to do above is create a ER database app.diagrams.io
+
+<!-- next step creates files or models -->
+use command to generate User
+# rails g model User first_name: string email: string username: string
+only need parentheses when creating this in the console.
+
+this created user.rb, and migration file with class method change and values we gave it.  Where our attributes live and get changed. 
+
+this is the code that will be turned into sql code aka CREATE TABLE USERS. 
+
+<!--next we migrate those files  -->
+# rails db:migrate 
+this migrates to the schema.rb 
+
+<!-- what can we do with this so far? -->
+go to rails console
+# rails c or rails console
+inside console lets create a user. 
+# user = User.create(first_name: 'John', email: 'John@example.com', username: 'Johno') hit enter
+should now see INSERT INTO "users" ..........
+
+type in user to view this new user
+
+# user2 = User.create(first_name: 'John', email: 'John2@example.com', username: 'Johno2') hit enter
+this should be id: 2 automatically. 
+
+to view all users type User.all
+type quit/exit to leave console.
+
+<!-- next step create more entities with REFERENCES -->
+# rails g model Blog title: string content: text user: references
+next look at migration file t.references :user, null: false, foreign_key: true 
+belons_to :user
+# rails g model Profile user: references bio:text
+belongs_to :user
+
+<!-- establishing relationship between profile and user -->
+now how do I establish a relationship between profile and user
+# go to user.rb add has_one :profile
+
+now migrate again 
+# rails db: migrate
+
+<!-- relationship building and creating profile setting up associations-->
+# Set Up Associations:
+In the app/models/user.rb file:
+class User < ApplicationRecord
+  has_one :profile
+  has_many :blogs
+end
+In the app/models/profile.rb file:
+
+class Profile < ApplicationRecord
+  belongs_to :user // one to one relationship
+end
+
+class Blogs < AplicationRecord>
+ belongs_to :user // many to one relationship
+
+open rails console to look at relationship
+Userfind(1)
+or type user = User.first
+blog1 = Blog.create(user: user, title: "This is my first blog", content: "Lorem ipsum")
+blog2 = Blog.create(user: user, title: "This is my second blog", content: "Lorem ipsum")
+# to view ur blogs -- type user.blogs 
+
+profile = Profile.create(user: user, bio: "this is my bio")
+user.profile
+User.first.profile.create 
+
+<!-- go back to User.rb -->
+below --  has_one :profile
+add ---   after_create :create_profile
+
+<!-- create a user -->
+user = User.create(first_name: "Jane", email: "email@email.com", username: "roto")
+this now inserts into users and profiles which is new from steps above
+
+<!-- NEXT WE ARE GOING TO CREATE VALIDATORS -->
+start with user.rb
+
+validates: first_name, presence: true // just means it has to be there
+validates: email, presence: true
+validates: username, presence: true
+
+# if i hit enter on User.create without the validators then nil everything is not stored in database nil means not created correctly especially if the id and created at and updated at by rails are nil.
+
+
+
+
+
+
