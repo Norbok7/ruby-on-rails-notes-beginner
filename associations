@@ -1,0 +1,17 @@
+Here is a list of the different types of associations that can be created in Rails:
+
+# has_one Association:     This is used in the model that contains the foreign key. It specifies that each instance of the model has one instance of another model. For example, if a User model has one Profile, you would define it in the User model as has_one :profile.
+# belongs_to Association:  This is used in the model that is owned by another model. In the Profile model, you would use belongs_to :user to indicate that each profile is associated with a specific user.
+# has-many-through:        A has-many-through association is when a record in a table can belong to many records in another table through a third table. For example, a user has many doctors through appointments. A doctor has many users through appointments. Whereas a many-to-many association would be a patient has many doctors and a doctor has many patients.
+# has_and_belongs_to_many: A has_and_belongs_to_many association is when a record in a table can belong to many records in another table and vice versa. For example, a user has many friends and a friend has many users. This is similar to a has-many-through association, but the difference is that a has-many-through association requires a third model and a has_and_belongs_to_many association does not.
+# polymorphic:             A polymorphic association is when a record in a table can belong to more than one record from other tables. For example, a comment can belong to a post or a comment can belong to a photo.
+# self-join:               A self-join association is when a record in a table can belong to another record in the same table. For example, a user can have many friends and a friend can be a user. Followers and following is another example of a self-join association.
+
+has one            === user and profile
+has and belongs to === 
+has many           === user and blogs
+
+# association is ability to develop a relationship between models in ruby on rails
+# controllers are responsible for sending a response
+# routes map these to the controller
+User.create(first_name: "John", email: "john@msn.com")

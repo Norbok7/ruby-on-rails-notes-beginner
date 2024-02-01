@@ -1,0 +1,58 @@
+# create a new project
+rails new controllers_and_routes_api --api 
+# create a new model
+rails g model User name:string email:string
+#dont forget to migrate that model
+rails db:migrate
+#now create your first controller
+rails g controller Users
+# this above will create file app/controlelrs/user_controller.rb now open this up and add this code to it
+class UsersController < ApplicationController
+  def create #def create end is considered a action
+  end
+end
+# we are using this action to create a new user like so inside of our class UsersController
+
+  def create
+    @user = User.new(name: params[:name], email: params[:email])
+    if @user.save
+      render json: @user
+    else
+      render json: { error: "Unable to create user." }
+    end
+  end
+#test the above by making a POST hash on postman app to our local host
+{
+	"name": "John",
+	"email": "johndoe123@gmail.com"
+}
+########################NEXT STEP IS ROUTES#############################
+Now let's add a route to the routes file. Let's open up the routes file in config/routes.rb and add the following code:
+Rails.application.routes.draw do
+  resources :users
+end
+#first will will on create and we can specify that like so
+Rails.application.routes.draw do
+  resources :users, only: [:create] 
+
+#now lets create action 
+rails s 
+railg g controller Users
+
+# This will create a controller file in app/controllers/users_controller.rb. It's important that you name the controller file users_controller.rb since it is a convention in Rails to name the controller file after the resource that it is responsible for. Also, what we define in our routes file
+
+Rails.application.routes.draw do
+  resources :users, only: [:create,]
+end
+
+#now go to Users Controller
+class UsersController < ApplicationController
+  def create
+    user = User.new(name: params[:name], email: params[:email])
+    if user.save
+      render json: user
+    else
+      render json: { error: "Unable to create user." }
+    end
+  end
+end
