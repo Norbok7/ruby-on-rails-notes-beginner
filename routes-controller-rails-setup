@@ -3,7 +3,7 @@ rails new controllers_and_routes_api --api
 # create a new model
 rails g model User name:string email:string
 #dont forget to migrate that model
-rails db:migrate
+rails g model User name:string email:string
 #now create your first controller
 rails g controller Users
 # this above will create file app/controlelrs/user_controller.rb now open this up and add this code to it
@@ -56,3 +56,7 @@ class UsersController < ApplicationController
     end
   end
 end
+
+
+#####################class notes 
+2024-02-01-13-21-50.png
