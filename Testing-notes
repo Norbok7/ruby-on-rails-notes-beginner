@@ -1,0 +1,58 @@
+# testing file
+rails new rails-testing -T --api
+
+This will generate a new Rails application without the default testing framework.
+
+Without adding -T Rails will automatically add a testing framework called Minitest. If you have done this or have a pre-existing project, you can remove the test files by executing the following:
+
+rm -rf test/
+
+# insert these for testing development
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  end
+
+  the bundle install in terminal
+  # next
+  Next, run the following command to generate the RSpec configuration files:
+
+rails generate rspec:install
+
+# to use factory bot
+To use factory-bot, we need to add the following to our rails_helper.rb file:
+
+.
+.
+.
+RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+  .
+  .
+  .
+end
+
+# create a file called model
+Unit Testing in Ruby on Rails
+We will be using the TDD approach to build a simple blog application. Let's first create a test.
+
+Unit testing is the process of testing individual units of code. In Ruby on Rails, we can unit test our models.
+
+Unit Testing Models
+Create a new folder under spec called models and create a file under models called post_spec.rb.
+
+# add this to post_spec.rb
+require 'rails_helper'
+
+RSpec.describe Post, type: :model do
+  context 'with valid attributes' do
+    it 'is valid' do
+      post = Post.new(title: 'My First Post', content: 'Hello, world!')
+      expect(post).to be_valid
+    end
+  end
+end
+
+# run this next
+Run bundle exec rspec spec/models/post_spec.rb in your terminal to run the test or bundle exec rspec to run all tests. You should see the following output:
