@@ -1,0 +1,158 @@
+in ubuntu
+# rails new project_name --api #if you want a smaller file size
+code project_name --to open in vs code virtual terminal
+
+once in establish models
+# rails g model User name:string email:string
+migrate this
+# rails db:migrate
+create a user
+# User.create(name: "garrett" , email:"gcd@gmail.com")
+create a controller
+# rails generate controller Users
+
+# define actions in the controller
+class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  # Other CRUD actions...
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
+end
+
+# UPDATE TEH routes.rb
+Rails.application.routes.draw do
+  resources :users
+
+  # Other routes...
+end
+
+# dont forget to view on json u need that in the controller
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @users = User.all
+
+    respond_to do |format|
+      format.html # renders the HTML view (default)
+      format.json { render json: @users }
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html # renders the HTML view (default)
+      format.json { render json: @user }
+    end
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render json: @user, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
+end
+
+# INFORMATION FOR STEPS AFTER ROUTING/CONTROLLER AND ALL THE ABOVE
+Form Handling:
+Enhance the new and edit views to include forms for user input. You can use Rails form helpers to simplify this process. Make sure to handle form submissions in the controller's create and update actions.
+
+Validation:
+Add validations to your User model to ensure data integrity. For example, you might want to validate the presence of the name and email fields or enforce uniqueness for the email.
+
+Flash Messages:
+Implement flash messages to provide feedback to users after successful or unsuccessful operations. You can add flash messages in the controller and display them in your views.
+
+Authentication and Authorization:
+If your application requires user authentication and authorization, consider integrating a gem like Devise for authentication or CanCanCan for authorization.
+
+Associations:
+If your application involves relationships between models, define associations in your models and update the database accordingly. For example, if a User can have many Posts, set up the appropriate associations and migrations.
+
+Testing:
+Write tests for your models, controllers, and views using tools like RSpec or Rails built-in testing framework. This helps ensure the reliability and correctness of your application.
+
+Styling:
+Apply styles to your views using CSS or a front-end framework like Bootstrap. Make your application visually appealing and user-friendly.
+
+Deployment:
+Once your application is ready, consider deploying it to a hosting service such as Heroku, AWS, or DigitalOcean. Configure your production environment and set up necessary services.
+
+Monitoring and Maintenance:
+Implement monitoring tools and error tracking to keep an eye on your application's performance. Regularly update dependencies and handle maintenance tasks.
+
+Remember to run relevant database migrations (rails db:migrate) and restart your Rails server after making changes to the code.
+
+These are general steps, and the specific requirements may vary based on your application's needs and complexity. Feel free to adapt and extend based on your project requirements.
+
+
