@@ -36,3 +36,9 @@ end
 
 in rails_helper add in config of railshelper.rb
 config.include FactoryBot::Syntax::Methods
+allows us to use in rspec files testing
+
+2024-02-08-12-53-12.png
+
+you can always create tests, but 
+2024-02-08-12-58-37.png
