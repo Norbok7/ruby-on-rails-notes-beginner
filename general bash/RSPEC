@@ -1,0 +1,38 @@
+2/8/24 rspec testing guidelines and class notes
+ruby on rails ships with many tests
+when you run rails s it states starting in devleopment 
+rails c loads development environment, and it states that
+
+Faker::Address.methods become available
+
+run bundle exec rspec so you can test your specific part of the projec tnot everything. in ex. group project.
+can also run rspec
+
+pending means its reminding us to add test files to this. 
+
+RSpec.describe Blog, type: :model do
+  context "validations tests" do
+    it "is not valid without a title" do 
+      user = User.new(first_name: "John", last_name: "doe", email: "test@test.com", username: "johndoe123")
+      blog = Blog.new(content: "sample content", user: user)
+      expect(blog).not_to be_valid 
+      # essentially filled out everything properly except the title aka requires title      
+    end
+  end
+end
+
+RSPEC not only for testing models, but to test REQUESTS
+rails g rspec:request Blogs
+
+demonstration of using REQUESTS
+
+SETUP FACTORY BOT
+helps to easily setup/build Blogs
+FactoryBot.define do
+  factory :blog do 
+    title {Faker::name.}
+  end
+end
+
+in rails_helper add in config of railshelper.rb
+config.include FactoryBot::Syntax::Methods
