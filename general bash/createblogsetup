@@ -1,0 +1,13 @@
+2024-02-26-12-22-50.png
+error unauthorized when creating the above
+so how do i tell backend im authorized?
+
+add a token to request via token interceptor
+need to go to backend and make sure the backend
+understands someone should be logged in to hit create blog endpoint or review etc.
+
+![](2024-02-26-12-35-48.png)
+backendupdate to create blog while logged in
+
+![](2024-02-26-12-40-35.png)
+auth interceptor
