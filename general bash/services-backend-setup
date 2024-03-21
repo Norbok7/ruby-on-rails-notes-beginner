@@ -1,0 +1,47 @@
+create a service in app directory 
+
+purpose of service is to extract a action from a controller
+
+for example take create from user controller and put into user service
+
+inside the user service we define a module UserService <---same as file name
+
+inside of this define # crud operations <--aka actions or things to create update delete
+
+in our users controller we will call the defined actions of the success and errors ex. user.success? user.errors?
+module UserService 
+  #crud operations
+  module Base
+    def self.create_user(params)
+      user = User.new(params);
+
+      begin
+        user.save! exclamation thows exception if did not save
+      rescue ActiveRecord::RecordInvalid => exception
+        #return Error Service Contract
+        return ServiceContract.error(user.errors.full_messages)
+        
+      end
+      ServiceContract.success(user)
+    end
+  end
+end
+
+service contracts can be used to show if success ful or error since we cant do this in the service.
+  module ServiceContract
+    def self.success(payload)
+      OpenStruct.new
+      {
+        success?: true,
+        payload: payload,
+        errors: nil
+      }
+    end
+    def self.success(errors)
+      OpenStruct.new
+    {
+      success?: false,
+      payload: payload,
+      errors: errors
+    }
+  end
